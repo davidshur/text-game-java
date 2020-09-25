@@ -1,11 +1,10 @@
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
     boolean running = true;
     // System objects
-    Random rand = new Random();
+    Room.roomSayHello();
     Scanner in = new Scanner(System.in);
 
     // Introduction
@@ -26,12 +25,13 @@ public class Main {
       String response = in.nextLine();
       if (response.equals("yes")) {
         System.out.println("Then let's keep going!");
-      } else  if (response.equals("no")) {
+      } else if (response.equals("no")) {
         System.out.println("Let's stop then.");
         running = false;
       } else {
         System.out.println("Please say yes or no.");
       }
     }
+    in.close();
   }
 }
