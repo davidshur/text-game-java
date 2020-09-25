@@ -14,7 +14,7 @@ public class Main {
     String input = in.nextLine();
     if (input.equals("yes")) {
       System.out.println("These are the instructions of the game. Have fun!");
-    } else if (input.equals("no") {
+    } else if (input.equals("no")) {
       System.out.println("Let's get started then.");
     } else {
       System.out.println("Not quite sure what you meant... we are going to press on.");
@@ -26,7 +26,7 @@ public class Main {
       String response = in.nextLine();
       if (response.equals("yes")) {
         System.out.println("Then let's keep going!");
-      } else  if (response.equals("no") {
+      } else  if (response.equals("no")) {
         System.out.println("Let's stop then.");
         running = false;
       } else {
