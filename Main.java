@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
+    boolean running = true;
     // System objects
     Random rand = new Random();
     Scanner in = new Scanner(System.in);
@@ -13,8 +14,24 @@ public class Main {
     String input = in.nextLine();
     if (input.equals("yes")) {
       System.out.println("These are the instructions of the game. Have fun!");
-    } else {
+    } else if (input.equals("no") {
       System.out.println("Let's get started then.");
+    } else {
+      System.out.println("Not quite sure what you meant... we are going to press on.");
+    }
+
+    // Game running
+    while (running) {
+      System.out.println("Are you having fun?");
+      String response = in.nextLine();
+      if (response.equals("yes")) {
+        System.out.println("Then let's keep going!");
+      } else  if (response.equals("no") {
+        System.out.println("Let's stop then.");
+        running = false;
+      } else {
+        System.out.println("Please say yes or no.");
+      }
     }
   }
 }
