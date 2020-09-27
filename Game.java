@@ -16,21 +16,18 @@ public class Game {
     Scanner in = new Scanner(System.in);
     Parser textParser = new Parser();
     String input = in.nextLine();
-    ArrayList<String> words = new ArrayList<String>();
 
-    String[] a = input.split(" ");
-    for (int i = 0; i < a.length; i++) {
-      words.add(a[i]);
-    }
-
-    ArrayList<String> wordsNoArticles = textParser.parse(words);
-    System.out.println(wordsNoArticles);
+    ArrayList<String> command = textParser.parse(input);
+    System.out.println(command);
     in.close();
   }
 
   public static void intro() {
     System.out.println("-".repeat(10));
-    System.out.println("Welcome to the game!");
+    System.out.println("Welcome to the parser!");
+    System.out.println("You should type something into the terminal.");
+    System.out.println("If all goes well, upon hitting enter you should receive back an array with numbers.");
+    System.out.println("This array represents the meaning of your command.");
     System.out.println("-".repeat(10));
   }
 }
