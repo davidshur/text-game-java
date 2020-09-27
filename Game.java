@@ -2,7 +2,7 @@
  * This is a text-parser adventure modeled after the great Infocom text
  * adventures of the 90s.
  * 
- * @version 0.0.1
+ * @version 0.1 09--26-2020
  * @author David Shur
  */
 public class Game {
