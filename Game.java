@@ -7,6 +7,7 @@
  * @author David Shur
  */
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Game {
 
@@ -17,7 +18,7 @@ public class Game {
     String input = in.nextLine();
 
     String[] command = textParser.parse(input);
-    System.out.println(command);
+    System.out.println(Arrays.toString(command));
     in.close();
   }
 
