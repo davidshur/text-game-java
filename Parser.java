@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Class that parses user inputs.
  * 
@@ -20,31 +22,44 @@ public class Parser {
    *         run.
    */
   public String[] parse(String userCommandString) {
-    String[] cleanedUserCommand = cleanString(userCommandString);
-    return cleanedUserCommand;
+    String[] cleanedCommand = removeArticles(cleanString(userCommandString));
+    return cleanedCommand;
   }
 
+  /**
+   * Cleans up and formats the initial command string so that we may parse more
+   * easily.
+   * 
+   * @param s The string that the user has input as a command.
+   * @return Array of words without punctuation or capitals.
+   */
   private String[] cleanString(String s) {
     String[] a = s.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
     return a;
   }
 
   /**
-   * Returns an array of words without articles.
+   * Remove articles from the command array.
    * 
-   * @param words ArrayList<String>
-   * @return String[]
+   * @param words An array of words.
+   * @return An array of words without articles.
    */
-  // private String[] removeArticles(ArrayList<String> words) {
-  // for (String article : articles) {
-  // for (String word : words) {
-  // if (word.equals(article)) {
-  // words.remove(word);
-  // }
-  // }
-  // }
-  // String[] cleanedCommandArray = new String[words.size()];
-  // words.toArray(cleanedCommandArray);
-  // return cleanedCommandArray;
-  // }
+  private String[] removeArticles(String[] wordArray) {
+    ArrayList<String> wordList = new ArrayList<String>();
+    for (String word : wordArray) {
+      wordList.add(word);
+    }
+
+    for (String article : articles) {
+      for (String word : wordList) {
+        if (word.equals(article)) {
+          wordList.remove(word);
+        }
+      }
+    }
+
+    String[] cleanedCommandArray = new String[wordList.size()];
+    wordList.toArray(cleanedCommandArray);
+    return cleanedCommandArray;
+  }
 }
