@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Class that parses user inputs.
  * 
@@ -15,16 +13,20 @@ public class Parser {
       "stab" };
 
   /**
-   * Primaary function that initiates the parsing procedure.
+   * Primary function which coordinates the parsing procedure.
    * 
    * @param userCommandString User input string to be parsed.
    * @return An array of integers that will be used to determine the method to
    *         run.
    */
   public String[] parse(String userCommandString) {
-    String[] cleanedUserCommand = userCommandString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
-
+    String[] cleanedUserCommand = cleanString(userCommandString);
     return cleanedUserCommand;
+  }
+
+  private String[] cleanString(String s) {
+    String[] a = s.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
+    return a;
   }
 
   /**
