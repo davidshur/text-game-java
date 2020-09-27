@@ -14,22 +14,17 @@ public class Parser {
   private String[] verbs = { "go", "look", "fight", "take", "get", "look at", "examine", "inspect", "pick up", "kill",
       "stab" };
 
-  public ArrayList<String> parse(String userCommandString) {
-    String cleanedUserCommand = userCommandString.replaceAll("[^a-zA-Z ]", "").toLowerCase();
+  /**
+   * Primaary function that initiates the parsing procedure.
+   * 
+   * @param userCommandString User input string to be parsed.
+   * @return An array of integers that will be used to determine the method to
+   *         run.
+   */
+  public String[] parse(String userCommandString) {
+    String[] cleanedUserCommand = userCommandString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
 
-    ArrayList<String> userCommandList = stringToList(cleanedUserCommand);
-    return userCommandList;
-  }
-
-  public ArrayList<String> stringToList(String s) {
-    ArrayList<String> l = new ArrayList<String>();
-    String[] a = s.split(" ");
-
-    for (String word : a) {
-      l.add(word);
-    }
-
-    return l;
+    return cleanedUserCommand;
   }
 
   /**
