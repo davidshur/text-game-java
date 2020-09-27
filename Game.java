@@ -7,7 +7,6 @@
  * @author David Shur
  */
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Game {
 
@@ -17,7 +16,7 @@ public class Game {
     Parser textParser = new Parser();
     String input = in.nextLine();
 
-    ArrayList<String> command = textParser.parse(input);
+    String[] command = textParser.parse(input);
     System.out.println(command);
     in.close();
   }
