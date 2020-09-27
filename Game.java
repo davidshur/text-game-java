@@ -1,16 +1,19 @@
-import java.util.Scanner;
-
+/**
+ * This is a text-parser adventure modeled after the great Infocom text
+ * adventures of the 90s.
+ * 
+ * @version 0.0.1
+ * @author David Shur
+ */
 public class Game {
 
   public static void main(String[] args) {
-    Thing book = new Thing(0, "Book", "This is a book", false);
-    Scanner in = new Scanner(System.in);
-    System.out.println("Which item do you want to check?");
-    String input = in.nextLine();
-    if (input.equals("book")) {
-      System.out.println(book.getName());
-      System.out.println(book.getDescription());
-    }
-    in.close();
+    intro();
+  }
+
+  public static void intro() {
+    System.out.println("-".repeat(10));
+    System.out.println("Welcome to the game!");
+    System.out.println("-".repeat(10));
   }
 }
