@@ -11,12 +11,11 @@ import java.util.HashSet;
 public class Parser {
 
   private String[] articles = { "a", "an", "the" };
-  private String[] dictionary = { "old", "rusty", "iron", "sword", "box", "key" };
+  private String[] dictionary = { "old", "rusty", "iron", "sword", "box", "key", "troll" };
   private String[] prepositions = { "in", "on", "under", "over", "at", "with", "up" };
-  private String[] verbs = { "go", "look", "fight", "take", "get", "look at", "look around", "examine", "inspect",
-      "pick up", "kill", "stab" };
   HashSet<String> articleHashSet = new HashSet<String>();
   HashMap<String, Integer> prepositionHashMap = new HashMap<String, Integer>();
+  HashMap<String, Integer> dictionaryHashMap = new HashMap<String, Integer>();
   HashMap<String, Integer> verbHashMap = new HashMap<String, Integer>();
 
   /**
@@ -26,10 +25,15 @@ public class Parser {
    * @return An array of integers that will be used to determine the method to
    *         run.
    */
-  public String[] parse(String userCommandString) {
+  public int[] parse(String userCommandString) {
     // Make articles HashSet
     for (String article : articles) {
       articleHashSet.add(article);
+    }
+
+    // Make dictionary HashMap
+    for (int i = 0; i < dictionary.length; i++) {
+      dictionaryHashMap.put(dictionary[i], i);
     }
 
     // Make prepositions HashMap
@@ -64,9 +68,8 @@ public class Parser {
 
     ArrayList<String> noArticlesList = removeArticles(userCommandList);
     ArrayList<String> reducedCommandList = reducePrepositionsToVerb(noArticlesList);
-    String[] parsedCommandArray = new String[reducedCommandList.size()];
-    reducedCommandList.toArray(parsedCommandArray);
-    return parsedCommandArray;
+    int[] numberList = mapWordsToInts(reducedCommandList);
+    return numberList;
   }
 
   /**
@@ -107,5 +110,18 @@ public class Parser {
     }
     wordList.removeIf(word -> prepositionHashMap.containsKey(word));
     return wordList;
+  }
+
+  private int[] mapWordsToInts(ArrayList<String> wordList) {
+    int[] numberList = new int[wordList.size()];
+
+    numberList[0] = verbHashMap.get(wordList.get(0));
+    numberList[1] = dictionaryHashMap.get(wordList.get(1));
+    if (wordList.size() > 2) {
+      numberList[2] = prepositionHashMap.get(wordList.get(2));
+      numberList[3] = dictionaryHashMap.get(wordList.get(3));
+    }
+
+    return numberList;
   }
 }

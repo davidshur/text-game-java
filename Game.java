@@ -17,7 +17,7 @@ public class Game {
     Parser textParser = new Parser();
     String input = in.nextLine();
 
-    String[] command = textParser.parse(input);
+    int[] command = textParser.parse(input);
     System.out.println(Arrays.toString(command));
     in.close();
   }
