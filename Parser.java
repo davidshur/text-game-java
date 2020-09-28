@@ -11,7 +11,8 @@ import java.util.HashSet;
 public class Parser {
 
   private String[] articles = { "a", "an", "the" };
-  private String[] dictionary = { "door", "man", "key", "sword", "chest", "key", "troll", "carpet" };
+  private String[] dictionary = { "door", "man", "key", "sword", "chest", "key", "troll", "carpet", "north", "south",
+      "east", "west" };
   private String[] prepositions = { "in", "on", "under", "over", "at", "with", "up" };
   HashSet<String> articleHashSet = new HashSet<String>();
   HashMap<String, Integer> prepositionHashMap = new HashMap<String, Integer>();
@@ -68,7 +69,6 @@ public class Parser {
 
     ArrayList<String> noArticlesList = removeArticles(userCommandList);
     ArrayList<String> reducedCommandList = reducePrepositionsToVerb(noArticlesList);
-    System.out.println(reducedCommandList);
     int[] numberList = mapWordsToInts(reducedCommandList);
     return numberList;
   }

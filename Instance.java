@@ -4,14 +4,10 @@ public abstract class Instance {
   private int id;
   private String name;
   private String description;
-  private boolean isContainer;
-  private boolean isVisible;
 
-  public Instance(String n, String d, boolean c, boolean v) {
+  public Instance(String n, String d) {
     name = n;
     description = d;
-    isContainer = c;
-    isVisible = v;
 
     id = nextId++;
   }
@@ -26,13 +22,5 @@ public abstract class Instance {
 
   public String getDescription() {
     return description;
-  }
-
-  public boolean getIsContainer() {
-    return isContainer;
-  }
-
-  public boolean getIsVisible() {
-    return isVisible;
   }
 }
