@@ -9,23 +9,21 @@ import java.util.Scanner;
  * @version 0.03 09--27-2020
  * @author David Shur
  */
-
 public class Game {
   public static boolean playing = true;
   public static int currentRoom = 0;
   public static int[] goNorth = { 0, 8 };
 
-  public static HashMap<Integer, Room> roomHashMap = new HashMap<Integer, Room>();
-
   public static void main(String[] args) {
-    Parser textParser = new Parser();
-    Scanner in = new Scanner(System.in);
+    var in = new Scanner(System.in);
+    var roomHashMap = new HashMap<Integer, Room>();
+    var textParser = new Parser();
 
-    Room opening = new Room(1, -1, 2, -1, "Cave Entrance",
+    var opening = new Room(1, -1, 2, -1, "Cave Entrance",
         "You find yourself in a narrow cave entry way. The winding path forks here, there is a wide passage to the North and a crawlway to the East.");
     roomHashMap.put(0, opening);
 
-    Room trollRoom = new Room(-1, 0, 3, -1, "Troll Room",
+    var trollRoom = new Room(-1, 0, 3, -1, "Troll Room",
         "The room you stand in is dominated by a hulking troll who is angry, with snot dangling from his nose. There are exits to the South and East.");
     roomHashMap.put(1, trollRoom);
 
@@ -33,14 +31,14 @@ public class Game {
 
     // Playing game
     while (playing) {
-      Room room = roomHashMap.get(currentRoom);
+      var room = roomHashMap.get(currentRoom);
 
       System.out.println();
       System.out.println(room.getDescription());
       System.out.println();
       System.out.println();
 
-      String input = in.nextLine();
+      var input = in.nextLine();
 
       int[] command = textParser.parse(input);
 
