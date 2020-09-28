@@ -16,7 +16,7 @@ public class Parser {
   private String[] verbs = { "go", "look", "fight", "take", "get", "look at", "look around", "examine", "inspect",
       "pick up", "kill", "stab" };
   HashSet<String> articleHashSet = new HashSet<String>();
-  HashSet<String> prepositionHashSet = new HashSet<String>();
+  HashMap<String, Integer> prepositionHashMap = new HashMap<String, Integer>();
   HashMap<String, Integer> verbHashMap = new HashMap<String, Integer>();
 
   /**
@@ -32,9 +32,9 @@ public class Parser {
       articleHashSet.add(article);
     }
 
-    // Make prepositions HashSet
-    for (String preposition : prepositions) {
-      prepositionHashSet.add(preposition);
+    // Make prepositions HashMap
+    for (int i = 0; i < prepositions.length; i++) {
+      prepositionHashMap.put(prepositions[i], i);
     }
 
     // Make verbs HashMap
@@ -101,11 +101,11 @@ public class Parser {
    */
   private ArrayList<String> reducePrepositionsToVerb(ArrayList<String> wordList) {
     for (String word : wordList) {
-      if (prepositionHashSet.contains(word)) {
+      if (prepositionHashMap.containsKey(word)) {
         wordList.set(0, wordList.get(0) + " " + word);
       }
     }
-    wordList.removeIf(word -> prepositionHashSet.contains(word));
+    wordList.removeIf(word -> prepositionHashMap.containsKey(word));
     return wordList;
   }
 }
