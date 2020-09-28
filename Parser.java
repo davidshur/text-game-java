@@ -11,7 +11,7 @@ import java.util.HashSet;
 public class Parser {
 
   private String[] articles = { "a", "an", "the" };
-  private String[] dictionary = { "old", "rusty", "iron", "sword", "box", "key", "troll" };
+  private String[] dictionary = { "door", "man", "key", "sword", "chest", "key", "troll", "carpet" };
   private String[] prepositions = { "in", "on", "under", "over", "at", "with", "up" };
   HashSet<String> articleHashSet = new HashSet<String>();
   HashMap<String, Integer> prepositionHashMap = new HashMap<String, Integer>();
@@ -68,6 +68,7 @@ public class Parser {
 
     ArrayList<String> noArticlesList = removeArticles(userCommandList);
     ArrayList<String> reducedCommandList = reducePrepositionsToVerb(noArticlesList);
+    System.out.println(reducedCommandList);
     int[] numberList = mapWordsToInts(reducedCommandList);
     return numberList;
   }
@@ -103,12 +104,15 @@ public class Parser {
    *         preposition.
    */
   private ArrayList<String> reducePrepositionsToVerb(ArrayList<String> wordList) {
-    for (String word : wordList) {
-      if (prepositionHashMap.containsKey(word)) {
-        wordList.set(0, wordList.get(0) + " " + word);
-      }
+    if (prepositionHashMap.containsKey(wordList.get(wordList.size() - 1))) {
+      wordList.add(1, wordList.get(wordList.size() - 1));
+      wordList.remove(wordList.size() - 1);
     }
-    wordList.removeIf(word -> prepositionHashMap.containsKey(word));
+    if (prepositionHashMap.containsKey(wordList.get(1))) {
+      wordList.set(0, wordList.get(0) + " " + wordList.get(1));
+      wordList.remove(1);
+    }
+
     return wordList;
   }
 
@@ -117,7 +121,7 @@ public class Parser {
 
     numberList[0] = verbHashMap.get(wordList.get(0));
     numberList[1] = dictionaryHashMap.get(wordList.get(1));
-    if (wordList.size() > 2) {
+    if (wordList.size() == 4) {
       numberList[2] = prepositionHashMap.get(wordList.get(2));
       numberList[3] = dictionaryHashMap.get(wordList.get(3));
     }
