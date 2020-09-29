@@ -1,6 +1,9 @@
 package com.findshur;
 
 import com.findshur.Enums.Articles;
+import com.findshur.Enums.Prepositions;
+import com.findshur.Enums.Dictionary;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -11,11 +14,24 @@ import java.util.HashSet;
  * in multithreaded environments due to the synchronizing of the threads.
  */
 public final class Parser {
-  private static volatile Parser instance;
-
+  // create hashset of articles
   private EnumSet<Articles> articles = EnumSet.allOf(Articles.class);
   private HashSet<Articles> articlesHashSet = new HashSet<Articles>(articles);
+  // create hashset of prepositions
+  private EnumSet<Prepositions> prepositions = EnumSet.allOf(Prepositions.class);
+  private HashSet<Prepositions> prepositionsHashSet = new HashSet<Prepositions>(prepositions);
+  // create hashset of dictionary
+  private EnumSet<Dictionary> dictionary = EnumSet.allOf(Dictionary.class);
+  private HashSet<Dictionary> dictionaryHashSet = new HashSet<Dictionary>(dictionary);
 
+  private static volatile Parser instance;
+
+  /**
+   * Creates an instance of the Parser in a way that will ensure there is only one
+   * instance of Parser possible... even in a multi-threading scenario.
+   * 
+   * @return new Parser instance.
+   */
   public static Parser getInstance() {
     Parser result = instance;
     if (result != null) {
@@ -38,7 +54,10 @@ public final class Parser {
    */
   public ArrayList<String> parse(String userInput) {
     var commandArray = cleanStringToArrayList(userInput);
+
     removeArticles(commandArray);
+    createAnyCompoundVerb(commandArray);
+
     return commandArray;
   }
 
@@ -63,5 +82,24 @@ public final class Parser {
    */
   private void removeArticles(ArrayList<String> l) {
     l.removeIf(word -> articlesHashSet.toString().contains(word));
+  }
+
+  /**
+   * Creates a compound verb by combining the verb with a preposition found next
+   * or last in the command list. Cleans up command list afterwards.
+   * 
+   * @param l An ArrayList of strings.
+   * @return An ArrayList of strings with a compound verb instead of a verb and
+   *         separate preposition, if possible.
+   */
+  private void createAnyCompoundVerb(ArrayList<String> l) {
+    if (prepositionsHashSet.toString().contains(l.get(l.size() - 1))) {
+      l.add(1, l.get(l.size() - 1));
+      l.remove(l.size() - 1);
+    }
+    if (prepositionsHashSet.toString().contains(l.get(1))) {
+      l.set(0, l.get(0) + " " + l.get(1));
+      l.remove(1);
+    }
   }
 }
