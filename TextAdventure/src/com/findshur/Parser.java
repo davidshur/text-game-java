@@ -38,6 +38,7 @@ public final class Parser {
    */
   public ArrayList<String> parse(String userInput) {
     var commandArray = cleanStringToArrayList(userInput);
+    removeArticles(commandArray);
     return commandArray;
   }
 
@@ -47,11 +48,20 @@ public final class Parser {
    * 
    * @param s User command as string.
    * @return ArrayList<String> of user command that has been cleaned and split to
-   *         words containing only lower-case letters and no symbols.
+   *         words containing only upper-case letters and no symbols.
    */
   private ArrayList<String> cleanStringToArrayList(String s) {
-    var a = s.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
+    var a = s.replaceAll("[^a-zA-Z ]", "").toUpperCase().split("\\s+");
     var l = new ArrayList<String>(Arrays.asList(a));
     return l;
+  }
+
+  /**
+   * Takes an array list of strings and removes articles... "a", "an", "the".
+   * 
+   * @param l ArrayList<String> to have articles removed from.
+   */
+  private void removeArticles(ArrayList<String> l) {
+    l.removeIf(word -> articlesHashSet.toString().contains(word));
   }
 }
