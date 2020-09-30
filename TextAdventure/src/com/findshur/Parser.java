@@ -29,7 +29,7 @@ public final class Parser {
    * Creates an instance of the Parser ensures Singleton pattern even in
    * multi-threading situation.
    * 
-   * @return new Parser instance.
+   * @return the Parser instance.
    */
   public static Parser getInstance() {
     Parser result = instance;
