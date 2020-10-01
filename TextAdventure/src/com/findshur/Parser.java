@@ -1,28 +1,12 @@
 package com.findshur;
 
-import com.findshur.Enums.Articles;
-import com.findshur.Enums.Prepositions;
-import com.findshur.Enums.Dictionary;
-
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashSet;
 
 /**
  * Parser made in the Singleton design pattern.
  */
 public final class Parser {
-  // create hashset of articles
-  private static EnumSet<Articles> articles = EnumSet.allOf(Articles.class);
-  private static HashSet<Articles> articlesHashSet = new HashSet<Articles>(articles);
-  // create hashset of prepositions
-  private static EnumSet<Prepositions> prepositions = EnumSet.allOf(Prepositions.class);
-  private static HashSet<Prepositions> prepositionsHashSet = new HashSet<Prepositions>(prepositions);
-  // create hashset of dictionary
-  private static EnumSet<Dictionary> dictionary = EnumSet.allOf(Dictionary.class);
-  private static HashSet<Dictionary> dictionaryHashSet = new HashSet<Dictionary>(dictionary);
-
   private static volatile Parser instance;
 
   /**
@@ -55,7 +39,7 @@ public final class Parser {
     var commandArray = cleanStringToArrayList(userInput);
 
     removeArticles(commandArray);
-    createAnyCompoundVerb(commandArray);
+    createAnyCompoundVerbs(commandArray);
 
     return commandArray;
   }
@@ -79,7 +63,7 @@ public final class Parser {
    * @param l ArrayList<String> to have articles removed from.
    */
   private static void removeArticles(ArrayList<String> l) {
-    l.removeIf(word -> articlesHashSet.toString().contains(word));
+    l.removeIf(word -> Words.getArticles().contains(word));
   }
 
   /**
@@ -90,12 +74,12 @@ public final class Parser {
    * @return An ArrayList of strings with a compound verb instead of a verb and
    *         separate preposition, if possible.
    */
-  private static void createAnyCompoundVerb(ArrayList<String> l) {
-    if (prepositionsHashSet.toString().contains(l.get(l.size() - 1))) {
+  private static void createAnyCompoundVerbs(ArrayList<String> l) {
+    if (Words.getPrepositions().toString().contains(l.get(l.size() - 1))) {
       l.add(1, l.get(l.size() - 1));
       l.remove(l.size() - 1);
     }
-    if (prepositionsHashSet.toString().contains(l.get(1))) {
+    if (Words.getPrepositions().toString().contains(l.get(1))) {
       l.set(0, l.get(0) + l.get(1));
       l.remove(1);
     }
