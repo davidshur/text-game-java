@@ -17,7 +17,7 @@ public class Game {
       printGameText(roomText);
       var input = in.nextLine();
       if (input.equals("stop")) {
-        parseAndPrintUserText("Stop game.");
+        parseAndPrintUserText(endingText);
         break;
       }
       parseAndPrintUserText(input);
