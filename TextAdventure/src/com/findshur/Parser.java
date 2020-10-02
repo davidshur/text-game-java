@@ -90,6 +90,14 @@ public final class Parser {
     }
   }
 
+  /**
+   * Reduces words to subjects. Goes from verb to end of sentence or from verb to
+   * preposition and from preposition to end of sentence. Reduces words to a
+   * single subject string.
+   * 
+   * @param l An array list of strings in the format [verb, ...words] or [verb,
+   *          ...words, preposition, ...words].
+   */
   private static void reduceDictionaryWords(ArrayList<String> l) {
     if (l.size() == 1) {
       return;
