@@ -1,6 +1,7 @@
 package com.findshur;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.ArrayList;
 
 /**
@@ -32,14 +33,15 @@ public final class Parser {
    * Takes a user command string and parses it to a user command array.
    * 
    * @param userInput String user has entered as a command.
-   * @return ArrayList<Integer> that has been cleaned, reduced and translated to
-   *         represent a user method.
+   * @return An array list of integers that has been cleaned, reduced and
+   *         translated to represent a user method.
    */
   public static ArrayList<String> parse(String userInput) {
     var commandArray = cleanStringToArrayList(userInput);
 
     removeArticles(commandArray);
     createAnyCompoundVerbs(commandArray);
+    reduceDictionaryWords(commandArray);
 
     return commandArray;
   }
@@ -60,7 +62,7 @@ public final class Parser {
   /**
    * Takes an array list of strings and removes articles... "a", "an", "the".
    * 
-   * @param l ArrayList<String> to have articles removed from.
+   * @param l An array list of strings to have articles removed from.
    */
   private static void removeArticles(ArrayList<String> l) {
     l.removeIf(word -> Words.getArticles().contains(word));
@@ -70,18 +72,49 @@ public final class Parser {
    * Creates a compound verb by combining the verb with a preposition found next
    * or last in the command array list. Cleans up command array list afterwards.
    * 
-   * @param l An ArrayList of strings.
-   * @return An ArrayList of strings with a compound verb instead of a verb and
-   *         separate preposition, if possible.
+   * @param l An array list of strings.
    */
   private static void createAnyCompoundVerbs(ArrayList<String> l) {
-    if (Words.getPrepositions().toString().contains(l.get(l.size() - 1))) {
+    if (l.size() == 1) {
+      return;
+    }
+    var prepositions = Words.getPrepositions().toString();
+
+    if (prepositions.contains(l.get(l.size() - 1))) {
       l.add(1, l.get(l.size() - 1));
       l.remove(l.size() - 1);
     }
-    if (Words.getPrepositions().toString().contains(l.get(1))) {
+    if (prepositions.contains(l.get(1))) {
       l.set(0, l.get(0) + l.get(1));
       l.remove(1);
+    }
+  }
+
+  private static void reduceDictionaryWords(ArrayList<String> l) {
+    if (l.size() == 1) {
+      return;
+    }
+    int breakPoint = l.size();
+    for (String word : l) {
+      if (Words.getPrepositions().contains(word)) {
+        breakPoint = l.indexOf(word);
+      }
+    }
+
+    String[] subject1 = { "" };
+    String[] subject2 = { "" };
+    for (int i = 1; i < breakPoint; i++) {
+      subject1[0] += l.get(i);
+    }
+    if (breakPoint != l.size()) {
+      for (int i = breakPoint + 1; i < l.size(); i++) {
+        subject2[0] += l.get(i);
+      }
+    }
+    l.removeIf(word -> subject1[0].contains(word) || subject2[0].contains(word));
+    l.add(1, subject1[0]);
+    if (subject2[0] != "") {
+      l.add(3, subject2[0]);
     }
   }
 
