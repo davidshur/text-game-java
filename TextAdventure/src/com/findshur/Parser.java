@@ -1,8 +1,5 @@
 package com.findshur;
 
-import java.util.Arrays;
-import java.util.ArrayList;
-
 /**
  * Parser made in the Singleton design pattern.
  */

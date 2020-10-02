@@ -4,27 +4,19 @@ import java.util.Scanner;
 
 public class Game {
   private static boolean playing = true;
-  private static String introText = "You open your eyes and see that you are near a smoldering fire.";
-  private static String endingText = "Someone's life flashes before your eyes. Guess this is the end.";
-  private static String roomText = "There is a cave opening to the North. On the floor you see a scattering of papers. You are surrounded by a redwood forest on all other sides.";
+  private static String introduction = "Welcome to the dungeon. You may say: go, get, or attack.";
 
   public static void main(String[] args) {
-    Parser.getInstance();
     var in = new Scanner(System.in);
-    printGameText(introText);
+    var player = Player.getInstance();
 
+    printGameText(introduction);
     while (playing) {
-      printGameText(roomText);
+      printGameText();
       var input = in.nextLine();
-      if (input.equals("stop")) {
-        parseAndPrintUserText(endingText);
-        break;
-      }
-      parseAndPrintUserText(input);
     }
 
     in.close();
-    printGameText(endingText);
   }
 
   /**
@@ -36,20 +28,6 @@ public class Game {
     System.out.println("~".repeat(10));
     System.out.println();
     System.out.println(text);
-    System.out.println();
-  }
-
-  /**
-   * Prints parsed user command for debugging.
-   * 
-   * @param s User input string from the scanner.
-   */
-  private static void parseAndPrintUserText(String s) {
-    var command = Parser.parse(s);
-
-    System.out.println();
-    System.out.println("Parsed command:");
-    System.out.println(command);
     System.out.println();
   }
 }
