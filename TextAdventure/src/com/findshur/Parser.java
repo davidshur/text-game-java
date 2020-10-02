@@ -1,7 +1,7 @@
 package com.findshur;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.EnumMap;
 import java.util.ArrayList;
 
 /**
@@ -9,6 +9,29 @@ import java.util.ArrayList;
  */
 public final class Parser {
   private static volatile Parser instance;
+
+  private static EnumMap<Subjects, Integer> dictionarySubjects = new EnumMap<>(Subjects.class);
+
+  public Parser() {
+    dictionarySubjects.put(Subjects.DUSTYCHEST, 0);
+    dictionarySubjects.put(Subjects.DUSTYDOOR, 0);
+    dictionarySubjects.put(Subjects.DUSTYCARPET, 0);
+    dictionarySubjects.put(Subjects.DUSTYSWORD, 0);
+    dictionarySubjects.put(Subjects.GOLDKEY, 0);
+    dictionarySubjects.put(Subjects.GOLDLOCK, 0);
+    dictionarySubjects.put(Subjects.IRONLOCK, 0);
+    dictionarySubjects.put(Subjects.IRONKEY, 0);
+    dictionarySubjects.put(Subjects.RUSTYIRONSWORD, 0);
+    dictionarySubjects.put(Subjects.LARGEDOOR, 0);
+    dictionarySubjects.put(Subjects.LARGEMAN, 0);
+    dictionarySubjects.put(Subjects.LARGECHEST, 0);
+    dictionarySubjects.put(Subjects.UGLYTROLL, 0);
+    dictionarySubjects.put(Subjects.OLDMAN, 0);
+    dictionarySubjects.put(Subjects.RUSTYKNIFE, 0);
+    dictionarySubjects.put(Subjects.RUSTYLOCK, 0);
+    dictionarySubjects.put(Subjects.SKELETONKEY, 0);
+    dictionarySubjects.put(Subjects.SCARYDOOR, 0);
+  }
 
   /**
    * Creates an instance of the Parser ensures Singleton pattern even in
@@ -138,6 +161,15 @@ public final class Parser {
    */
   private static int[] mapStringsToIntegers(ArrayList<String> stringList) {
     int[] intList = new int[4];
+
+    intList[0] = Words.getVerbs().get(stringList.get(0));
+    if (stringList.size() > 1) {
+      intList[1] = 1;
+    }
+    if (stringList.size() > 2) {
+      intList[2] = 2;
+      intList[3] = 3;
+    }
 
     return intList;
   }
