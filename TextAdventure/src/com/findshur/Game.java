@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Game {
   private static boolean playing = true;
-  private static String introduction = "Welcome to the dungeon. You may say: go, get, or attack.";
+  private static String introduction = "Welcome to the dungeon. You may say: go, get, or fight.";
 
   public static void main(String[] args) {
     var in = new Scanner(System.in);
@@ -12,8 +12,21 @@ public class Game {
 
     printGameText(introduction);
     while (playing) {
-      printGameText();
+      printGameText(player.getCurrentRoom().getDescription());
       var input = in.nextLine();
+      var command = Parser.parse(input);
+      System.out.println();
+      switch (command) {
+        case "GO":
+          Player.move();
+          break;
+        case "GET":
+          Player.get();
+          break;
+        case "FIGHT":
+          Player.attack();
+          break;
+      }
     }
 
     in.close();
@@ -29,5 +42,9 @@ public class Game {
     System.out.println();
     System.out.println(text);
     System.out.println();
+  }
+
+  public static void endGame() {
+    playing = false;
   }
 }

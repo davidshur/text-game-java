@@ -5,31 +5,37 @@ enum Rooms {
 }
 
 public class Room {
-  private static Enum<?> room;
-  private static Enum<?> nextRoom;
-  private static String name;
-  private static String description;
+  private Enum<?> room;
+  private Enum<?> nextRoom;
+  private String name;
+  private String description;
+  private Item item;
 
-  public Room(Enum<?> aRoom, Enum<?> theNextRoom, String aName, String aDescription) {
+  public Room(Enum<?> aRoom, Enum<?> theNextRoom, String aName, String aDescription, Item anItem) {
     room = aRoom;
     nextRoom = theNextRoom;
     name = aName;
     description = aDescription;
+    item = anItem;
   }
 
-  public static String getName() {
-    return name;
-  }
-
-  public static String getDescription() {
-    return description;
-  }
-
-  public static Enum<?> getRoom() {
+  public Enum<?> getRoom() {
     return room;
   }
 
-  public static Enum<?> getNextRoom() {
+  public Enum<?> getNextRoom() {
     return nextRoom;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public Item getItem() {
+    return item;
   }
 }

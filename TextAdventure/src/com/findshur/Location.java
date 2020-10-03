@@ -7,18 +7,21 @@ import java.util.HashMap;
  * the next room, given a room object.
  */
 public class Location {
-  private static Room currentLocation;
+  public Room firstRoom;
   private static HashMap<Room, Room> map = new HashMap<Room, Room>();
 
   public Location() {
     var entranceRoom = new Room(Rooms.ENTRANCE, Rooms.CHEST, "Cave Entrance",
-        "You are standing outside a cave. The breeze is cold and biting. Ahead of you is the only shelter for miles. It looks like there is only one way to go.");
+        "You are standing outside a cave. The breeze is cold and biting. Ahead of you is the only shelter for miles. It looks like there is only one way to go.",
+        null);
     var chestRoom = new Room(Rooms.CHEST, Rooms.TROLL, "Cavern",
-        "It is damp inside. It smells of death. Behind a pile of rocks, there is a large iron sword covered in cobwebs. The only way forward is ahead through a small and narrow crawlway.");
+        "It is damp inside. It smells of death. Behind a pile of rocks, there is a large iron sword covered in cobwebs. The only way forward is ahead through a small and narrow crawlway.",
+        new Item("Dusty Sword", true));
     var trollRoom = new Room(Rooms.TROLL, Rooms.CHEST, "Troll Room",
-        "A large and vicious troll stands before you. It sneers and bangs on its chest. Snot drips from its nose.");
+        "A large and vicious troll stands before you. It sneers and bangs on its chest. Snot drips from its nose.",
+        null);
 
-    currentLocation = entranceRoom;
+    firstRoom = entranceRoom;
 
     map.put(entranceRoom, chestRoom);
     map.put(chestRoom, trollRoom);
@@ -28,19 +31,11 @@ public class Location {
   /**
    * Gets the next room using the current room.
    * 
-   * @return The room object of the next room based on current location.
+   * @param room A given room, most likely the current room of the player.
+   * @return The room object of the next room.
    */
-  public static Room nextLocation() {
-    var nextRoom = map.get(currentLocation);
+  public static Room getNextRoom(Room room) {
+    var nextRoom = map.get(room);
     return nextRoom;
-  }
-
-  /**
-   * Gets the current room.
-   * 
-   * @return The room object of the current room.
-   */
-  public static Room getLocation() {
-    return currentLocation;
   }
 }
