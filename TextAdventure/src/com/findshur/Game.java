@@ -26,6 +26,9 @@ public class Game {
         case "FIGHT":
           Player.attack();
           break;
+        default:
+          System.out.println("Valid commands are: go, get, or fight.");
+          System.out.println();
       }
     }
 
