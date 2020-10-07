@@ -23,7 +23,7 @@ public class Game {
 
   private static void playGame() {
     while (playing) {
-      printStyledText(player.getCurrentRoom().getDescription());
+      printStyledText(player.getCurrentRoomDescription());
       getAndRunCommand();
     }
   }
@@ -44,10 +44,10 @@ public class Game {
         Player.move();
         break;
       case "GET":
-        Player.get();
+        Player.getItem();
         break;
       case "FIGHT":
-        Player.attack();
+        Player.fight();
         break;
       default:
         System.out.println("Valid commands are: go, get, or fight.");
